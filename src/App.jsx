@@ -13,21 +13,6 @@ import { useEffect, useState } from "react";
 const App = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  useEffect(() => {
-    if (isPlaying) {
-      const interval = setInterval(() => {
-        setCurrentIndex((currentIndex) => {
-          const isLastSlide = currentIndex === slides.length - 1;
-          const newIndex = isLastSlide ? 0 : currentIndex + 1;
-          return newIndex;
-        });
-      }, 3000);
-      return () => {
-        clearInterval(interval);
-      };
-    }
-  }, [isPlaying, currentIndex]);
-
   const slides = [
     {
       url: laddakh,
@@ -60,12 +45,26 @@ const App = () => {
         "Italy is a country located in southern Europe, known for its rich history, stunning art, and delicious cuisine. Italy is home to world-famous cities like Rome, Florence, and Venice, each with its own unique character and attractions. The country is also renowned for its picturesque landscapes, including the stunning Amalfi Coast, the rolling hills of Tuscany, and the snow-capped peaks of the Italian Alps.Italy is a country located in southern Europe, known for its rich history, stunning art, and delicious cuisine. Italy is home to world-famous cities like Rome, Florence, and Venice, each with its own unique character and attractions. The country is also renowned for its picturesque landscapes, including the stunning Amalfi Coast, the rolling hills of Tuscany, and the snow-capped peaks of the Italian Alps.Italy is a country located in southern Europe, known for its rich history, stunning art, and delicious cuisine. Italy is home to world-famous cities like Rome, Florence, and Venice, each with its own unique character and attractions. The country is also renowned for its picturesque landscapes, including the stunning Amalfi Coast, the rolling hills of Tuscany, and the snow-capped peaks of the Italian Alps.",
     },
   ];
+  useEffect(() => {
+    if (isPlaying) {
+      const interval = setInterval(() => {
+        setCurrentIndex((currentIndex) => {
+          const isLastSlide = currentIndex === slides.length - 1;
+          const newIndex = isLastSlide ? 0 : currentIndex + 1;
+          return newIndex;
+        });
+      }, 3000);
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [slides.length, isPlaying, currentIndex]);
 
   return (
     <Box p={2}>
       <Typography
         variant="h2"
-        gutterBottom="true"
+        gutterBottom={true}
         sx={{ textAlign: "center", fontFamily: "fantasy", color: "#63aeff" }}
       >
         Catalogue Viewer
